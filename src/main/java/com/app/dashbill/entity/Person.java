@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
+
+@Entity
 @Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC)
 @NoArgsConstructor
 public class Person {
@@ -21,8 +21,8 @@ public class Person {
 
     private String name;
 
-    @OneToOne @JoinColumn(name = "debit")
+    @OneToMany @JoinColumn(name = "person_id")
     @NonNull
-    private Debit debit;
+    private List<Debit> debit;
 
 }

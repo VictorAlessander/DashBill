@@ -7,6 +7,9 @@ import com.app.dashbill.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+
 @Service
 public class PersonService {
 
@@ -22,5 +25,9 @@ public class PersonService {
         }
 
         return false;
+    }
+
+    public List<Person> listPeople() {
+        return personRepo.findAll();
     }
 }
