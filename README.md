@@ -1,0 +1,2 @@
+# DashBill
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/484348fefb344bf69f339e2dbeacec3a)](https://app.codacy.com/app/VictorAlessander/DashBill?utm_source=github.com&utm_medium=referral&utm_content=VictorAlessander/DashBill&utm_campaign=Badge_Grade_Settings)
