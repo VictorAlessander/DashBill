@@ -1,32 +1,43 @@
 package com.app.dashbill.service;
 
 
-import com.app.dashbill.entity.Debit;
-import com.app.dashbill.repository.DebitRepository;
-import com.app.dashbill.utils.Validator;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.app.dashbill.entity.Debit;
+import com.app.dashbill.repository.DebitRepository;
 
 
 @Service
 public class DebitService {
 
     @Autowired
-    DebitRepository debitRepo;
+    private DebitRepository debitRepo;
 
-    public boolean createDebit(Debit debit) {
-        if (!Validator.isNullOrEmpty(debit)) {
-            debitRepo.save(debit);
-
-            return true;
-        }
-
-        return false;
+    public void createDebit(Debit debit) {
+        debitRepo.save(debit);
     }
 
     public List<Debit> listDebits() {
         return debitRepo.findAll();
+    }
+    
+    public Debit getDebit(long id) {
+    	Optional<Debit> query = debitRepo.findById(id);
+    	
+    	return query.isPresent() ? query.get() : null;
+    }
+    
+    public void removeDebit(long id) {
+    	debitRepo.deleteById(id);
+    }
+    
+    public List<Debit> getDebitsByDateRange(LocalDate fromDate, LocalDate toDate) {
+    	return debitRepo.getDebitsByDateRange(fromDate, toDate);
+    	
     }
 }

@@ -3,11 +3,11 @@ package com.app.dashbill.service;
 
 import com.app.dashbill.entity.Person;
 import com.app.dashbill.repository.PersonRepository;
-import com.app.dashbill.utils.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,16 +18,29 @@ public class PersonService {
 
 
     public boolean createPerson(Person person) {
-        if (!Validator.isNullOrEmpty(person)) {
-            personRepo.save(person);
+        personRepo.save(person);
+        
+        return true;
+    }
 
+    public List<Person> listPeople() {
+        return personRepo.findAll();
+    }
+
+    public boolean deletePerson(Long id) {
+        Optional<Person> query = personRepo.findById(id);
+
+        if (query.isPresent()) {
+            personRepo.deleteById(id);
             return true;
         }
 
         return false;
     }
 
-    public List<Person> listPeople() {
-        return personRepo.findAll();
+    public Optional<Person> getPersonById(Long id) {
+        Optional<Person> query = personRepo.findById(id);
+
+        return query;
     }
 }

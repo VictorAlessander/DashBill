@@ -6,5 +6,7 @@ public enum CategoryEnum {
 
     FOOD,
     ELETRONICS,
-    CLOTHES
+    CLOTHES,
+    SHOES,
+    BIRTHDAY
 }
