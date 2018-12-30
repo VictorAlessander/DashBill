@@ -2,6 +2,6 @@ package com.app.dashbill.repository;
 
 
 import com.app.dashbill.entity.Person;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface PersonRepository extends JpaRepository<Person, Long> { }
+public interface PersonRepository extends MongoRepository<Person, String> { }

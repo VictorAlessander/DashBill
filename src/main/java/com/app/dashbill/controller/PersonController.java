@@ -20,8 +20,11 @@ import java.util.Optional;
 @Controller
 public class PersonController {
 
-    @Autowired
     private PersonService personService;
+
+    public PersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @RequestMapping(value = "/person/new", method = RequestMethod.POST)
     public ResponseEntity<String> newPerson(@Valid @RequestBody Person person) {
@@ -47,7 +50,7 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/person/remove/{idPerson}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletePerson(@PathVariable Long idPerson) {
+    public ResponseEntity<?> deletePerson(@PathVariable String idPerson) {
         boolean result = personService.deletePerson(idPerson);
 
         if(!result) {
@@ -58,7 +61,7 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/person/{idPerson}", method = RequestMethod.GET)
-    public ResponseEntity<?> getPerson(@PathVariable Long idPerson) {
+    public ResponseEntity<?> getPerson(@PathVariable String idPerson) {
         Optional<Person> result = personService.getPersonById(idPerson);
 
         if (!result.isPresent()) {

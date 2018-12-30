@@ -1,7 +1,7 @@
 package com.app.dashbill.controller;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,11 @@ import com.app.dashbill.service.DebitService;
 @Controller
 public class DebitController {
 
-    @Autowired
     private DebitService debitService;
+
+    public DebitController(DebitService debitService) {
+        this.debitService = debitService;
+    }
 
     @RequestMapping(value = "/debit/new", method = RequestMethod.POST)
     public ResponseEntity<String> newDebit(@RequestBody Resource<Debit> debitResource) {
@@ -46,7 +49,7 @@ public class DebitController {
     }
     
     @RequestMapping(value = "/debit/{debitId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getDebit(@PathVariable("debitId") long debitId) {
+    public ResponseEntity<?> getDebit(@PathVariable("debitId") String debitId) {
     	Debit debit = debitService.getDebit(debitId);
     	
     	if (debit == null) {
@@ -58,7 +61,7 @@ public class DebitController {
     }
     
     @RequestMapping(value = "/debit/remove/{debitId}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> removeDebit(@PathVariable long debitId) {
+    public ResponseEntity<?> removeDebit(@PathVariable String debitId) {
     	debitService.removeDebit(debitId);
     	
     	return new ResponseEntity<>(HttpStatus.OK);
@@ -66,8 +69,8 @@ public class DebitController {
     
     @RequestMapping(value = "/debit/{fromDate}/{toDate}", method = RequestMethod.GET)
     public ResponseEntity<?> getDebitByDateRange(
-    		@PathVariable("fromDate") @DateTimeFormat(iso=ISO.DATE) LocalDate fromDate,
-    		@PathVariable("toDate") @DateTimeFormat(iso=ISO.DATE) LocalDate toDate) {
+    		@PathVariable("fromDate") @DateTimeFormat(iso=ISO.DATE) Date fromDate,
+    		@PathVariable("toDate") @DateTimeFormat(iso=ISO.DATE) Date toDate) {
     	List<Debit> debits = debitService.getDebitsByDateRange(fromDate, toDate);
     	
     	return debits.isEmpty() ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(debits, HttpStatus.OK);

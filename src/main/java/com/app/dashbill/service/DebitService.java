@@ -1,7 +1,7 @@
 package com.app.dashbill.service;
 
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,18 +26,18 @@ public class DebitService {
         return debitRepo.findAll();
     }
     
-    public Debit getDebit(long id) {
+    public Debit getDebit(String id) {
     	Optional<Debit> query = debitRepo.findById(id);
     	
     	return query.isPresent() ? query.get() : null;
     }
     
-    public void removeDebit(long id) {
+    public void removeDebit(String id) {
     	debitRepo.deleteById(id);
     }
     
-    public List<Debit> getDebitsByDateRange(LocalDate fromDate, LocalDate toDate) {
-    	return debitRepo.getDebitsByDateRange(fromDate, toDate);
+    public List<Debit> getDebitsByDateRange(Date fromDate, Date toDate) {
+    	return debitRepo.findByDateBetween(fromDate, toDate);
     	
     }
 }

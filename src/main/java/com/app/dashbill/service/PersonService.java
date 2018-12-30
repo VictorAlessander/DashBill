@@ -27,7 +27,7 @@ public class PersonService {
         return personRepo.findAll();
     }
 
-    public boolean deletePerson(Long id) {
+    public boolean deletePerson(String id) {
         Optional<Person> query = personRepo.findById(id);
 
         if (query.isPresent()) {
@@ -38,7 +38,7 @@ public class PersonService {
         return false;
     }
 
-    public Optional<Person> getPersonById(Long id) {
+    public Optional<Person> getPersonById(String id) {
         Optional<Person> query = personRepo.findById(id);
 
         return query;
