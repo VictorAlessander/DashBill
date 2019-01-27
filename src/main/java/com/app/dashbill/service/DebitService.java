@@ -29,7 +29,7 @@ public class DebitService {
     public Debit getDebit(String id) {
     	Optional<Debit> query = debitRepo.findById(id);
     	
-    	return query.isPresent() ? query.get() : null;
+    	return query.orElse(null);
     }
     
     public void removeDebit(String id) {

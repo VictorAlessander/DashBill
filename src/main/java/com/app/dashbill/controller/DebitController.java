@@ -4,6 +4,7 @@ package com.app.dashbill.controller;
 import java.util.Date;
 import java.util.List;
 
+import br.com.twsoftware.alfred.object.Objeto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -52,7 +53,7 @@ public class DebitController {
     public ResponseEntity<?> getDebit(@PathVariable("debitId") String debitId) {
     	Debit debit = debitService.getDebit(debitId);
     	
-    	if (debit == null) {
+    	if (Objeto.isBlank(debit)) {
     		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     	}
     	

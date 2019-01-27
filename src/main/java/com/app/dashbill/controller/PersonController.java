@@ -31,7 +31,7 @@ public class PersonController {
         boolean result = personService.createPerson(person);
 
         if (!result) {
-            return new ResponseEntity<>("BAD REQUEST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("BAD REQUEST", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>("OK", HttpStatus.CREATED);
@@ -51,11 +51,7 @@ public class PersonController {
 
     @RequestMapping(value = "/person/remove/{idPerson}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable String idPerson) {
-        boolean result = personService.deletePerson(idPerson);
-
-        if(!result) {
-            return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
-        }
+        personService.deletePerson(idPerson);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
